@@ -1,8 +1,9 @@
 import { Battle } from "./battle";
+import State from "./state";
 
 type Reward = {
   name: string;
-  action: (battle: Battle) => void;
+  action: (state: State) => void;
 };
 
 export default Reward;
