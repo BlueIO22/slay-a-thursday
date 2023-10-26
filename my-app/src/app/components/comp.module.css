@@ -9,14 +9,18 @@
 .character {
     display:flex;
     flex-direction: column;
-    height: 11em;
-    width: 4em;
+    height: 13em;
+    width: 5em;
     background-color: white;
+    border-style: outset;
 }
 
 .header {
     height: 1em;
-
+    margin: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+    font-weight: bold;
 }
 
 .characterHealth {
@@ -24,18 +28,27 @@
     flex-direction: row;
     border: 1px solid black;
     height: 1em;
+    flex-shrink: 0;
 }
 
 .characterHealthLeft {
     background-color: darkgray;
+    margin: 0;
+    height: 100%;
 }
 
 .characterHealthRight {
     background-color: red;
+    margin: 0;
+    height: 100%;
 }
 
 .image {
     height: 3em;
     width: 3em;
     flex-grow:0;
+}
+
+.description {
+    overflow: hidden;
 }
