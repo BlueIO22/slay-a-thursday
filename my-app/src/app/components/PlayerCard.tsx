@@ -2,19 +2,27 @@ import { state } from "../layout";
 import Card from "../lib/card";
 import styles from "./comp.module.css";
 
+export enum CardPosition {
+  STACK,
+  HAND,
+  DISCARD,
+}
+
 interface CardProps {
   card: Card;
   onPlayed: (card: Card) => void;
-  stack?: boolean;
+  cardPosition: CardPosition;
 }
 
-const Card = (props: CardProps) => {
-  const { card, onPlayed, stack } = props;
+const PlayerCard = (props: CardProps) => {
+  const { card, onPlayed, cardPosition } = props;
   return (
     <div
       className={styles.card}
       onClick={() => {
-        card.action(state);
+        if (cardPosition === CardPosition.HAND) {
+          card.action(state);
+        }
         onPlayed(card);
       }}
     >
@@ -25,4 +33,4 @@ const Card = (props: CardProps) => {
   );
 };
 
-export default Card;
+export default PlayerCard;

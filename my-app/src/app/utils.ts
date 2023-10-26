@@ -5,11 +5,12 @@ export const getRandomNumber = (min: number, max: number) => {
 };
 
 export function shuffel<T>(array: T[]): T[] {
-  let newArray = [];
-  while (array.length > 0) {
-    const index = Math.random() * array.length - 1;
-    newArray.push(array[index]);
-    array.splice(index, 1);
+  let newArray: T[] = [];
+  let oldArray: T[] = [...array];
+  while (oldArray.length > 0) {
+    const index = Math.floor(Math.random() * oldArray.length);
+    newArray = [...newArray, oldArray[index]];
+    oldArray.splice(index, 1);
   }
   return newArray;
 }
