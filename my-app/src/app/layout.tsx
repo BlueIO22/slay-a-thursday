@@ -16,7 +16,7 @@ export default function RootLayout({
             <a href="/home">Home</a>
           </li>
           <li>
-            <a href="/battle">battle</a>
+            <a href="/about">about</a>
           </li>
           <li>
             <a href="/battle">battle</a>
