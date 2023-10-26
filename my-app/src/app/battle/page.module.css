@@ -55,7 +55,7 @@
 .discard {
     display: flex;
     flex-direction: column;
-    height: 10em;
-    width: 3em;
+    height: 20em;
+    width: 8em;
     border: 1px solid black;
 }

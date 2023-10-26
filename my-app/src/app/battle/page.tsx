@@ -38,12 +38,17 @@ const Battle = () => {
     if (state.getCurrentBattle().currentTurn == 0) {
       const shuffeledCards = shuffel<Card>(state.character.deck);
       setStack(shuffeledCards);
+      setDiscard([]);
       populateHand(shuffeledCards);
     }
   }, []);
 
   const populateHand = (cards: Card[]) => {
     const numberOfCardsDrawnFromStackPile = 3;
+
+    if (stack.length < numberOfCardsDrawnFromStackPile) {
+      cards = shuffel<Card>(state.character.deck);
+    }
     setHand([...cards.filter((x, i) => i < numberOfCardsDrawnFromStackPile)]);
     setStack([...cards.filter((x, i) => i >= numberOfCardsDrawnFromStackPile)]);
   };
@@ -73,23 +78,23 @@ const Battle = () => {
     discardHand();
     populateHand(stack);
 
-    for( const enemy in currentBattle.enemies ) {
-        enemyTurn(currentBattle.enemies[enemy]);
+    for (const enemy in currentBattle.enemies) {
+      enemyTurn(currentBattle.enemies[enemy]);
     }
   };
 
   const enemyTurn = (enemy) => {
-    if ( enemy.health === 0 ) {
-        return;
+    if (enemy.health === 0) {
+      return;
     }
-    const index = getRandomNumber(0, enemy.deck.length-1);
+    const index = getRandomNumber(0, enemy.deck.length - 1);
     const card = enemy.deck[index];
     card.action(state);
 
-    if ( state.character.health <= 0) {
-        router.push('/defeat');
+    if (state.character.health <= 0) {
+      router.push("/defeat");
     }
-  }
+  };
 
   return (
     <div className={styles.main}>
