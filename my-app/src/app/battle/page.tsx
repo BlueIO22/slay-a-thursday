@@ -1,7 +1,5 @@
 import styles from "./page.module.css";
-import {state} from "../page";
-
-console.log(state);
+import {state} from "../layout";
 
 function classStr(...classes:string[])
 {
@@ -10,12 +8,19 @@ function classStr(...classes:string[])
 
 const Battle = () => {
 
-    // let enimies = state.battles[state.currentPosition].enimies;
-    let enimies = ['a','b','c'];
+console.log(' 00000 ');
+console.log(state);
+console.log(' 11111 ');
+console.log(state.battles[state.currentPosition]);
+console.log(' 22222 ');
+    const enemies = state.battles[state.currentPosition].enemies;
+console.log(enemies);
+console.log(' 33333 ');
+    // let enemies = ['a','b','c'];
     let hand = ['a','b','c'];
 
-    const enimyDivs = enimies.map(
-            (enimy) =>  {
+    const enemyDivs = enemies.map(
+            (enemy) =>  {
             return (<div className={styles.character}> </div>);
             });
 
@@ -30,7 +35,7 @@ const Battle = () => {
                 <div className={classStr(styles.left, styles.character)}> </div>
                 <div className={styles.space}> </div>
                 <div className={styles.right}>
-                {enimyDivs}
+                {enemyDivs}
                 </div>
             </div>
 
