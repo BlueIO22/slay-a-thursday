@@ -2,8 +2,10 @@ import Card from "./card";
 
 type Character = {
   name: string;
+  bigraphy: string;
   health: number;
-  imageUrl: string;
+  maxHealth: number;
+  imageUrl?: string;
   deck: Card[];
 };
 
