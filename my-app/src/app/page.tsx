@@ -23,7 +23,7 @@ export default function () {
     name: "example battle",
     rewards: [flaskOfPerfectionReward],
     enemies: [myFirstSlime],
-    position: 1,
+    position: 0,
     currentTurn: 0,
   };
 
