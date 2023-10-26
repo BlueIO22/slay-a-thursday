@@ -34,7 +34,10 @@
     width: 3em;
     border: 1px solid black;
 }
+
 .stack {
+    display: flex;
+    flex-direction: column;
     height: 10em;
     width: 3em;
     border: 1px solid black;
@@ -50,6 +53,8 @@
 }
 
 .discard {
+    display: flex;
+    flex-direction: column;
     height: 10em;
     width: 3em;
     border: 1px solid black;
