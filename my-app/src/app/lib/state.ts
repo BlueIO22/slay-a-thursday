@@ -5,6 +5,7 @@ type State = {
   character: Character;
   battles: Battle[];
   currentPosition: number;
+  getCurrentBattle: () => Battle;
 };
 
 export default State;

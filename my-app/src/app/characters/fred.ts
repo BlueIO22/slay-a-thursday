@@ -1,3 +1,5 @@
+import throwingDagger from "../cards/throwingDagger";
+import timeout from "../cards/timeout";
 import Character from "../lib/character";
 
 export default {
@@ -6,5 +8,5 @@ export default {
     "Fred is an outgoing, helpful, kind spirit, that loves helping grown men to cry",
   health: 20,
   maxHealth: 20,
-  deck: [],
+  deck: [throwingDagger, timeout],
 } as Character;
