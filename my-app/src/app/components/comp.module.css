@@ -2,8 +2,13 @@
     display:flex;
     flex-direction: column;
     height: 10em;
-    width: 3em;
+    width: 4em;
     background-color: green;
+}
+
+.cardHeader {
+    height: 1em;
+
 }
 
 .image {
