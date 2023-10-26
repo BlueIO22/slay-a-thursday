@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from 'next/navigation'
 import { state } from "../layout";
 import styles from "./page.module.css";
 import Character from "../components/character";
@@ -17,6 +18,8 @@ function classStr(...classes: string[]) {
 }
 
 const Battle = () => {
+  const router = useRouter();
+
   const [currentBattle, setCurrentBattle] = useState<Battle>(
     state.getCurrentBattle()
   );
@@ -49,6 +52,15 @@ const Battle = () => {
     // first do the stack, discard, hand
     setHand(hand.filter((x) => x !== playedCard));
     setDiscard([...currentBattle.discard, playedCard]);
+
+    const count = currentBattle.enemies.reduce(
+        (acc, enemy) => {return acc + (enemy.health > 0 ? 1 : 0);}, 0
+    );
+    console.log(count);
+    if ( count === 0 ) {
+        router.push('/victory');
+    }
+
     // update the current turn round
     state.battles[state.currentPosition] = currentBattle;
   };
@@ -66,12 +78,12 @@ const Battle = () => {
   return (
     <div className={styles.main}>
       <div className={styles.characters}>
-        <div className={classStr(styles.left, styles.character)}>
+        <div className={classStr(styles.left)}>
           <Character character={state.character} />
         </div>
         <div className={styles.space}> </div>
         <div className={styles.right}>
-          {enemies.map((enemy, index) => {
+          {enemies.filter((enemy) => enemy.health>0).map((enemy, index) => {
             return <Character key={index} character={enemy} />;
           })}
         </div>
