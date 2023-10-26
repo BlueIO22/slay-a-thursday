@@ -82,7 +82,7 @@ const Battle = () => {
     if ( enemy.health === 0 ) {
         return;
     }
-    const index = getRandomNumber(0, enemy.deck.length);
+    const index = getRandomNumber(0, enemy.deck.length-1);
     const card = enemy.deck[index];
     card.action(state);
 
