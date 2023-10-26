@@ -7,20 +7,20 @@ const Character = (props: { character: Character }) => {
   const rightHealth = (character.health / character.maxHealth) * 100;
   return (
     <div className={styles.character}>
-      <p className={styles.characterHealth}>
+      <div className={styles.characterHealth}>
         <p
           className={styles.characterHealthLeft}
           style={{
             width: `${leftHealth}%`,
           }}
-        ></p>
+        />
         <p
           className={styles.characterHealthRight}
           style={{
             width: `${rightHealth}%`,
           }}
-        ></p>
-      </p>
+        />
+      </div>
       <p className={styles.header}> {character.name}</p>
       <img
         className={styles.image}

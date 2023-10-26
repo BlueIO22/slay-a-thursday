@@ -4,29 +4,44 @@ import { state } from "../layout";
 import styles from "./page.module.css";
 import Card from "../components/card";
 import Character from "../components/character";
+import { useEffect, useState } from "react";
+import { Battle } from "../lib/battle";
 
 function classStr(...classes: string[]) {
   return classes.join(" ");
 }
 
 const Battle = () => {
-  const currentBattle = state.getCurrentBattle();
+  const [currentHand, setCurrentHand] = useState<Card[]>([]);
+  const [currentBattle, setCurrentBattle] = useState<Battle>(
+    state.getCurrentBattle()
+  );
 
-  let { enemies, hand, stack, discard } = currentBattle;
+  const enemies = currentBattle.enemies;
+
+  useEffect(() => {
+    if (state.getCurrentBattle().currentTurn == 0) {
+      setCurrentHand(state.character.deck);
+    }
+  }, []);
+
+  useEffect(() => {
+    state.battles[state.currentPosition] = currentBattle;
+  }, [currentBattle]);
 
   const enemyDivs = enemies.map((enemy, index) => {
-    return <Character key={index} character={enemy}></Character>;
+    return <Character key={index} character={enemy} />;
   });
 
   const onPlayedCard = (playedCard: Card) => {
     // first do the stack, discard, hand
-    hand = hand.filter((x) => x !== playedCard);
-    discard = [...discard, playedCard];
+    currentBattle.hand = currentBattle.hand.filter((x) => x !== playedCard);
+    currentBattle.discard = [...currentBattle.discard, playedCard];
+    setCurrentBattle(currentBattle);
     // update the current turn round
-    console.log(state);
   };
 
-  const cardDivs = hand.map((card, index) => {
+  const cardDivs = currentHand.map((card, index) => {
     return <Card key={index} card={card} onPlayed={onPlayedCard} />;
   });
 

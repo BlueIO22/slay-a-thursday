@@ -8,4 +8,7 @@ export default {
   enemies: [myFirstSlime],
   position: 0,
   currentTurn: 0,
+  hand: [],
+  stack: [],
+  discard: [],
 } as Battle;
