@@ -8,5 +8,5 @@ export default {
   health: 10,
   maxHealth: 10,
   deck: [throwingDagger],
-  imageUrl: "slime2"
+  imageUrl: "slime2",
 } as Character;

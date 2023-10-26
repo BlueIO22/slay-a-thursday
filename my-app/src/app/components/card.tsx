@@ -17,7 +17,7 @@ const Card = (props: CardProps) => {
         onPlayed(card);
       }}
     >
-      <p className={styles.cardHeader}> {card.name}</p>
+      <p className={styles.header}> {card.name}</p>
       <img className={styles.image} src={"/images/" + card.imageUrl + ".png"} />
       <div className={styles.description}>{card.description}</div>
     </div>

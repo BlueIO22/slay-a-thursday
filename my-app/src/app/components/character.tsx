@@ -3,7 +3,7 @@ import { Character } from "../lib/character";
 import styles from "./comp.module.css";
 
 
-const CharacterComp = (props: {character:Character}) => {
+const Character= (props: {character:Character}) => {
     const character = props.character;
     return <div className={styles.character}> 
     <p className={styles.characterHealth}> 
@@ -19,4 +19,4 @@ const CharacterComp = (props: {character:Character}) => {
     </div>;
 };
 
-export default CharacterComp;
+export default Character;

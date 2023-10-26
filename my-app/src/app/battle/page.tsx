@@ -2,8 +2,8 @@
 
 import { state } from "../layout";
 import styles from "./page.module.css";
-import CardComp from "../components/card";
 import Card from "../components/card";
+import Character from "../components/character";
 
 function classStr(...classes: string[]) {
   return classes.join(" ");
@@ -14,8 +14,8 @@ const Battle = () => {
 
   let { enemies, hand, stack, discard } = currentBattle;
 
-  const enemyDivs = enemies.map((enemy) => {
-    return <div className={styles.character}> </div>;
+  const enemyDivs = enemies.map((enemy, index) => {
+    return <Character key={index} character={enemy}> </Character>;
   });
 
   const onPlayedCard = (playedCard: Card) => {

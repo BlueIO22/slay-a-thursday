@@ -10,5 +10,5 @@ export default {
     state.character = increaseCharacterHealth(state.character, 30);
     return state;
   },
-    imageUrl: "Potion";
+    imageUrl: "Potion",
 } as Card;
