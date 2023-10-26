@@ -9,4 +9,5 @@ export default {
   health: 20,
   maxHealth: 20,
   deck: [throwingDagger, timeout],
+  imageUrl: "B_Queen"
 } as Character;

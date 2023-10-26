@@ -11,4 +11,5 @@ export default {
     chosenEnemy = decreaseCharacterHealth(chosenEnemy, 3);
     return state;
   },
+    imageUrl: "Dagger";
 } as Card;
