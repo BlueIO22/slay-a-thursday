@@ -1,3 +1,5 @@
+import throwingDagger from "../cards/throwingDagger";
+import { state } from "../layout";
 import styles from "./home.module.css";
 
 const Home = () => {
