@@ -27,6 +27,8 @@ export default function () {
     currentTurn: 0,
   };
 
+  state.battles = [...state.battles, exampleBattle];
+
   return (
     <>
       <Home />
