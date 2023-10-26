@@ -12,22 +12,25 @@ function classStr(...classes: string[]) {
 }
 
 const Battle = () => {
-  const [currentHand, setCurrentHand] = useState<Card[]>([]);
   const [currentBattle, setCurrentBattle] = useState<Battle>(
     state.getCurrentBattle()
   );
+
+  const [hand, setHand] = useState(state.character.deck);
+  const [stack, setStack] = useState(state.getCurrentBattle().stack);
+  const [discard, setDiscard] = useState(state.getCurrentBattle().discard);
 
   const enemies = currentBattle.enemies;
 
   useEffect(() => {
     if (state.getCurrentBattle().currentTurn == 0) {
-      setCurrentHand(state.character.deck);
+      setCurrentBattle({ ...currentBattle, hand: state.character.deck });
     }
   }, []);
 
   useEffect(() => {
-    state.battles[state.currentPosition] = currentBattle;
-  }, [currentBattle]);
+    setCurrentBattle({ ...currentBattle, hand, stack, discard });
+  }, [hand, stack, discard]);
 
   const enemyDivs = enemies.map((enemy, index) => {
     return <Character key={index} character={enemy} />;
@@ -35,15 +38,11 @@ const Battle = () => {
 
   const onPlayedCard = (playedCard: Card) => {
     // first do the stack, discard, hand
-    currentBattle.hand = currentBattle.hand.filter((x) => x !== playedCard);
-    currentBattle.discard = [...currentBattle.discard, playedCard];
-    setCurrentBattle(currentBattle);
+    setHand(currentBattle.hand.filter((x) => x !== playedCard));
+    setDiscard([...currentBattle.discard, playedCard]);
     // update the current turn round
+    state.battles[state.currentPosition] = currentBattle;
   };
-
-  const cardDivs = currentHand.map((card, index) => {
-    return <Card key={index} card={card} onPlayed={onPlayedCard} />;
-  });
 
   return (
     <div className={styles.main}>
@@ -55,7 +54,11 @@ const Battle = () => {
 
       <div className={styles.cards}>
         <div className={styles.stack}> </div>
-        <div className={styles.hand}>{cardDivs}</div>
+        <div className={styles.hand}>
+          {currentBattle.hand.map((card, index) => {
+            return <Card key={index} card={card} onPlayed={onPlayedCard} />;
+          })}
+        </div>
         <div className={styles.discard}> </div>
       </div>
     </div>
