@@ -1,3 +1,4 @@
+import throwingDagger from "../cards/throwingDagger";
 import Character from "../lib/character";
 
 export default {
@@ -6,5 +7,5 @@ export default {
     "When i a was born, the doctor puked, my mother disowned me. But the garbage man kept me in his dungeon, as his pet",
   health: 10,
   maxHealth: 10,
-  deck: [],
+  deck: [throwingDagger],
 } as Character;
