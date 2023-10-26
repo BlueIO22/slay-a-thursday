@@ -57,7 +57,14 @@ const Battle = () => {
       <div className={styles.cards}>
         <div className={styles.stack}>
           {currentBattle.stack.map((card, index) => {
-            return <Card key={index} card={card} onPlayed={onPlayedCard} />;
+            return (
+              <Card
+                stack={true}
+                key={index}
+                card={card}
+                onPlayed={onPlayedCard}
+              />
+            );
           })}
         </div>
         <div className={styles.hand}>
