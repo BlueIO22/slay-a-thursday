@@ -23,14 +23,14 @@ const Battle = () => {
   const enemies = currentBattle.enemies;
 
   useEffect(() => {
-    if (state.getCurrentBattle().currentTurn == 0) {
-      setCurrentBattle({ ...currentBattle, hand: state.character.deck });
-    }
-  }, []);
-
-  useEffect(() => {
     setCurrentBattle({ ...currentBattle, hand, stack, discard });
   }, [hand, stack, discard]);
+
+  useEffect(() => {
+    if (state.getCurrentBattle().currentTurn == 0) {
+      setStack(state.character.deck);
+    }
+  }, []);
 
   const enemyDivs = enemies.map((enemy, index) => {
     return <Character key={index} character={enemy} />;
@@ -44,6 +44,8 @@ const Battle = () => {
     state.battles[state.currentPosition] = currentBattle;
   };
 
+  const endTurn = () => {};
+
   return (
     <div className={styles.main}>
       <div className={styles.characters}>
@@ -53,13 +55,21 @@ const Battle = () => {
       </div>
 
       <div className={styles.cards}>
-        <div className={styles.stack}> </div>
+        <div className={styles.stack}>
+          {currentBattle.stack.map((card, index) => {
+            return <Card key={index} card={card} onPlayed={onPlayedCard} />;
+          })}
+        </div>
         <div className={styles.hand}>
           {currentBattle.hand.map((card, index) => {
             return <Card key={index} card={card} onPlayed={onPlayedCard} />;
           })}
         </div>
-        <div className={styles.discard}> </div>
+        <div className={styles.discard}>
+          {currentBattle.discard.map((card, index) => {
+            return <Card key={index} card={card} onPlayed={endTurn} />;
+          })}
+        </div>
       </div>
     </div>
   );

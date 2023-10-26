@@ -5,10 +5,11 @@ import styles from "./comp.module.css";
 interface CardProps {
   card: Card;
   onPlayed: (card: Card) => void;
+  stack?: boolean;
 }
 
 const Card = (props: CardProps) => {
-  const { card, onPlayed } = props;
+  const { card, onPlayed, stack } = props;
   return (
     <div
       className={styles.card}
