@@ -1,8 +1,6 @@
 import { state } from "../layout";
 import styles from "./page.module.css";
 
-console.log(state);
-
 function classStr(...classes: string[]) {
   return classes.join(" ");
 }
