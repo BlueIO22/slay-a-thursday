@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Battle } from "../lib/battle";
 import Card from "../lib/card";
 import PlayerCard, { CardPosition } from "../components/PlayerCard";
-import { shuffel } from "../utils";
+import { shuffel, getRandomNumber } from "../utils";
 
 // 1. enum
 // 2. add character css
@@ -56,7 +56,6 @@ const Battle = () => {
     const count = currentBattle.enemies.reduce((acc, enemy) => {
       return acc + (enemy.health > 0 ? 1 : 0);
     }, 0);
-    console.log(count);
     if (count === 0) {
       router.push("/victory");
     }
@@ -74,17 +73,22 @@ const Battle = () => {
     discardHand();
     populateHand(stack);
 
-    for( const enemy in currentBattle ) {
-        enemyTurn(enemy);
+    for( const enemy in currentBattle.enemies ) {
+        enemyTurn(currentBattle.enemies[enemy]);
     }
   };
 
-  const enemyTurn(enemy) {
+  const enemyTurn = (enemy) => {
     if ( enemy.health === 0 ) {
         return;
     }
     const index = getRandomNumber(0, enemy.deck.length);
     const card = enemy.deck[index];
+    card.action(state);
+
+    if ( state.character.health <= 0) {
+        router.push('/defeat');
+    }
   }
 
   return (
