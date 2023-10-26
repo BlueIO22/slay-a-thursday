@@ -1,5 +1,6 @@
 import { state } from "../layout";
 import styles from "./page.module.css";
+import CardComp from "../components/card"
 
 function classStr(...classes: string[]) {
     return classes.join(" ");
@@ -7,25 +8,16 @@ function classStr(...classes: string[]) {
 
 const Battle = () => {
 
-    console.log(' 00000 ');
-    console.log(state);
-    console.log(' 11111 ');
-    console.log(state.battles[state.currentPosition]);
-    console.log(' 22222 ');
-    const enemies = state.battles[state.currentPosition].enemies;
-    console.log(enemies);
-    console.log(' 33333 ');
-    // let enemies = ['a','b','c'];
-
-    let hand = ["a", "b", "c"];
+    const enemies = state.getCurrentBattle().enemies;
+    let hand = state.character.deck;
 
     const enemyDivs = enemies.map(
             (enemy) =>  {
             return (<div className={styles.character}> </div>);
             });
 
-    const cardDivs = hand.map((card) => {
-            return <div className={styles.card}> </div>;
+    const cardDivs = hand.map((card, index) => {
+            return <CardComp key={index} card={card}> </CardComp>;
             });
 
     return (<div className={styles.main}>
