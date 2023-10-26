@@ -1,4 +1,3 @@
-import { state } from "../page";
 import styles from "./home.module.css";
 
 const Home = () => {

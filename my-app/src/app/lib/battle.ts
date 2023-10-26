@@ -7,4 +7,7 @@ export type Battle = {
   enemies: Character[];
   position: number;
   currentTurn: number;
+  stack: number[];
+  hand: number[];
+  discard: number[];
 };
