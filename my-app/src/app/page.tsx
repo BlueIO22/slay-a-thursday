@@ -1,4 +1,5 @@
 import flaskOfPerfection from "./cards/flaskOfPerfection";
+import fred from "./characters/fred";
 import myFirstSlime from "./characters/myFirstSlime";
 import Home from "./home/page";
 import { Battle } from "./lib/battle";
@@ -6,14 +7,7 @@ import State from "./lib/state";
 import flaskOfPerfectionReward from "./rewards/flaskOfPerfectionReward";
 
 export let state: State = {
-  character: {
-    name: "",
-    bigraphy: "",
-    health: 0,
-    maxHealth: 0,
-    imageUrl: undefined,
-    deck: [],
-  },
+  character: fred,
   battles: [],
   currentPosition: 0,
 };
