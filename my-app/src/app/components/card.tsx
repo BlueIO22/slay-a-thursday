@@ -1,12 +1,10 @@
-"use client";
-
 import { state } from "../layout";
 import Card from "../lib/card";
 import styles from "./comp.module.css";
 
 interface CardProps {
   card: Card;
-  onPlayed: () => void;
+  onPlayed: (card: Card) => void;
 }
 
 const Card = (props: CardProps) => {
@@ -16,7 +14,7 @@ const Card = (props: CardProps) => {
       className={styles.card}
       onClick={() => {
         card.action(state);
-        onPlayed();
+        onPlayed(card);
       }}
     >
       <p className={styles.cardHeader}> {card.name}</p>

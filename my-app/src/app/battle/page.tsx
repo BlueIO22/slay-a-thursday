@@ -1,3 +1,5 @@
+"use client";
+
 import { state } from "../layout";
 import styles from "./page.module.css";
 import CardComp from "../components/card";
@@ -8,21 +10,22 @@ function classStr(...classes: string[]) {
 }
 
 const Battle = () => {
-  const enemies = state.getCurrentBattle().enemies;
-  let hand = state.character.deck;
+  const currentBattle = state.getCurrentBattle();
+
+  let { enemies, hand, stack, discard } = currentBattle;
 
   const enemyDivs = enemies.map((enemy) => {
     return <div className={styles.character}> </div>;
   });
 
-  const onPlayedCard = () => {};
+  const onPlayedCard = (playedCard: Card) => {
+    // first do the stack, discard, hand
+    hand = hand.filter((x) => x !== playedCard);
+    // update the current turn round
+  };
 
   const cardDivs = hand.map((card, index) => {
-    return (
-      <Card key={index} card={card} onPlayed={onPlayedCard}>
-        {" "}
-      </Card>
-    );
+    return <Card key={index} card={card} onPlayed={onPlayedCard} />;
   });
 
   return (
