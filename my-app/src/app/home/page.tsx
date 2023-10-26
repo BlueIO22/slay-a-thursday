@@ -1,5 +1,11 @@
+import styles from "./home.module.css";
+
 const Home = () => {
-  return <>Hello world</>;
+  return (
+    <>
+      <p className={styles.random}>Hello world</p>
+    </>
+  );
 };
 
 export default Home;

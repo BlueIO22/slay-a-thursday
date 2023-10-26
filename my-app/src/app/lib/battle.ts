@@ -1,4 +1,5 @@
 import Character from "./character";
+import Reward from "./reward";
 
 export type Battle = {
   name: string;
