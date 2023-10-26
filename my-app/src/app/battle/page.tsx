@@ -73,7 +73,19 @@ const Battle = () => {
   const endTurn = () => {
     discardHand();
     populateHand(stack);
+
+    for( const enemy in currentBattle ) {
+        enemyTurn(enemy);
+    }
   };
+
+  const enemyTurn(enemy) {
+    if ( enemy.health === 0 ) {
+        return;
+    }
+    const index = getRandomNumber(0, enemy.deck.length);
+    const card = enemy.deck[index];
+  }
 
   return (
     <div className={styles.main}>
