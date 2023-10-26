@@ -2,37 +2,51 @@ import { state } from "../layout";
 import styles from "./page.module.css";
 
 function classStr(...classes: string[]) {
-  return classes.join(" ");
+    return classes.join(" ");
 }
 
 const Battle = () => {
-  // let enimies = state.battles[state.currentPosition].enimies;
-  let enimies = ["a", "b", "c"];
-  let hand = ["a", "b", "c"];
 
-  const enimyDivs = enimies.map((enimy) => {
-    return <div className={styles.character}> </div>;
-  });
+    console.log(' 00000 ');
+    console.log(state);
+    console.log(' 11111 ');
+    console.log(state.battles[state.currentPosition]);
+    console.log(' 22222 ');
+    const enemies = state.battles[state.currentPosition].enemies;
+    console.log(enemies);
+    console.log(' 33333 ');
+    // let enemies = ['a','b','c'];
 
-  const cardDivs = hand.map((card) => {
-    return <div className={styles.card}> </div>;
-  });
+    let hand = ["a", "b", "c"];
 
-  return (
-    <div className={styles.main}>
-      <div className={styles.characters}>
-        <div className={classStr(styles.left, styles.character)}> </div>
-        <div className={styles.space}> </div>
-        <div className={styles.right}>{enimyDivs}</div>
-      </div>
+    const enemyDivs = enemies.map(
+            (enemy) =>  {
+            return (<div className={styles.character}> </div>);
+            });
 
-      <div className={styles.cards}>
-        <div className={styles.stack}> </div>
-        <div className={styles.hand}>{cardDivs}</div>
-        <div className={styles.discard}> </div>
-      </div>
-    </div>
-  );
+    const cardDivs = hand.map((card) => {
+            return <div className={styles.card}> </div>;
+            });
+
+    return (<div className={styles.main}>
+
+            <div className={styles.characters}>
+            <div className={classStr(styles.left, styles.character)}> </div>
+            <div className={styles.space}> </div>
+            <div className={styles.right}>
+            {enemyDivs}
+            </div>
+            </div>
+
+            <div className={styles.cards}>
+            <div className={styles.stack}> </div>
+            <div className={styles.hand}> 
+            {cardDivs}
+            </div>
+            <div className={styles.discard}> </div>
+            </div>
+
+            </div>);
 };
 
 export default Battle;
