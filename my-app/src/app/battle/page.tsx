@@ -15,13 +15,15 @@ const Battle = () => {
   let { enemies, hand, stack, discard } = currentBattle;
 
   const enemyDivs = enemies.map((enemy, index) => {
-    return <Character key={index} character={enemy}> </Character>;
+    return <Character key={index} character={enemy}></Character>;
   });
 
   const onPlayedCard = (playedCard: Card) => {
     // first do the stack, discard, hand
     hand = hand.filter((x) => x !== playedCard);
+    discard = [...discard, playedCard];
     // update the current turn round
+    console.log(state);
   };
 
   const cardDivs = hand.map((card, index) => {

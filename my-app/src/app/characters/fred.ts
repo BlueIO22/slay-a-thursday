@@ -4,7 +4,7 @@ import Character from "../lib/character";
 
 export default {
   name: "Fred",
-  bigraphy:
+  biography:
     "Fred is an outgoing, helpful, kind spirit, that loves helping grown men to cry",
   health: 20,
   maxHealth: 20,

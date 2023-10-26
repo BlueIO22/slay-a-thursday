@@ -2,7 +2,7 @@ import Card from "./card";
 
 type Character = {
   name: string;
-  bigraphy: string;
+  biography: string;
   health: number;
   maxHealth: number;
   imageUrl?: string;
