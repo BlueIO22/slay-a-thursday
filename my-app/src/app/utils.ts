@@ -1,4 +1,5 @@
 import Character from "./lib/character";
+import State from "./lib/state";
 
 export const getRandomNumber = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -39,4 +40,16 @@ export const increaseCharacterHealth = (
 ): Character => {
   character.health += amount;
   return validateCharacterHealth(character);
+};
+
+export const decreaseRandomEnemyHealth = (state: State, amount: number) => {
+  const enemies = state.getCurrentBattle().enemies.filter((e) => {
+    return e.health > 0;
+  });
+  if (enemies.length == 0) {
+    return state;
+  }
+  let chosenEnemy = enemies[getRandomNumber(0, enemies.length - 1)];
+  chosenEnemy = decreaseCharacterHealth(chosenEnemy, amount);
+  return state;
 };

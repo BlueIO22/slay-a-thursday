@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { state } from "../layout";
 import styles from "./page.module.css";
 import Character from "../components/character";
 import { useEffect, useState } from "react";
@@ -9,6 +8,8 @@ import { Battle } from "../lib/battle";
 import Card from "../lib/card";
 import PlayerCard, { CardPosition } from "../components/PlayerCard";
 import { shuffel, getRandomNumber } from "../utils";
+import { state } from "../layout";
+import State from "../lib/state";
 
 // 1. enum
 // 2. add character css
@@ -27,7 +28,12 @@ const Battle = () => {
   const [hand, setHand] = useState<Card[]>([]);
   const [stack, setStack] = useState<Card[]>([]);
   const [discard, setDiscard] = useState<Card[]>([]);
+  const [enemyPlayedCards, setEnemyPlayedCards] = useState<Card[]>([]);
 
+  const [showInformation, setShowInformation] = useState<Boolean>(false);
+  const [currentCharacter, setCurrentCharacter] = useState<
+    Character | undefined
+  >(undefined);
   const enemies = currentBattle.enemies;
 
   useEffect(() => {
@@ -77,41 +83,106 @@ const Battle = () => {
   const endTurn = () => {
     discardHand();
     populateHand(stack);
-
+    let enemyCards = [];
     for (const enemy in currentBattle.enemies) {
-      enemyTurn(currentBattle.enemies[enemy]);
+      const enemyCard = enemyTurn(currentBattle.enemies[enemy]);
+      if (enemyCard === null) {
+        continue;
+      }
+      enemyCards.push(enemyCard);
     }
+    setEnemyPlayedCards(enemyCards);
   };
 
   const enemyTurn = (enemy) => {
     if (enemy.health === 0) {
-      return;
+      return null;
     }
     const index = getRandomNumber(0, enemy.deck.length - 1);
     const card = enemy.deck[index];
-    card.action(state);
-
+    card.action(state, enemy);
     if (state.character.health <= 0) {
       router.push("/defeat");
     }
+    return card;
+  };
+
+  const showCharacterInformation = (character: any) => {
+    setCurrentCharacter(character);
+    setShowInformation(true);
   };
 
   return (
     <div className={styles.main}>
       <div className={styles.characters}>
         <div className={classStr(styles.left)}>
-          <Character character={state.character} />
+          <Character
+            character={state.character}
+            showCharacterInformation={showCharacterInformation}
+          />
         </div>
         <div className={styles.space}> </div>
         <div className={styles.right}>
           {enemies
             .filter((enemy) => enemy.health > 0)
             .map((enemy, index) => {
-              return <Character key={index} character={enemy} />;
+              return (
+                <Character
+                  showCharacterInformation={showCharacterInformation}
+                  key={index}
+                  character={enemy}
+                />
+              );
             })}
+          <div className={styles.enemyStack}>
+            {enemyPlayedCards !== undefined && (
+              <div className={styles.stack}>
+                {enemyPlayedCards.map((card, index) => {
+                  return (
+                    <PlayerCard
+                      cardPosition={CardPosition.DISCARD}
+                      card={card}
+                      onPlayed={() => {}}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
+      {showInformation && currentCharacter && (
+        <div className={styles.cardInformation}>
+          <img
+            className={styles.image}
+            src={"/images/" + currentCharacter.imageUrl + ".png"}
+          />
 
+          <h4>{currentCharacter.name}</h4>
+          <p>{currentCharacter.biography}</p>
+          <div className={styles.cardInformationDescriptionWrapper}>
+            {currentCharacter.deck.map((card: Card) => {
+              return (
+                <div className={styles.cardInformationDescription}>
+                  <p>{card.name}</p>
+                  <p>{card.description}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div
+            className={styles.closeButton}
+            onClick={() => {
+              setShowInformation(false);
+            }}
+          >
+            Close
+          </div>
+        </div>
+      )}
+      <div onClick={endTurn} className={styles.nextTurnButton}>
+        <p>End turn</p>
+      </div>
       <div className={styles.cards}>
         <div className={styles.stack}>
           {currentBattle.stack.map((card, index) => {
@@ -144,7 +215,7 @@ const Battle = () => {
                 cardPosition={CardPosition.DISCARD}
                 key={index}
                 card={card}
-                onPlayed={endTurn}
+                onPlayed={() => {}}
               />
             );
           })}

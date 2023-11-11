@@ -1,10 +1,14 @@
+"use client";
+
 import slimeyGarden from "./battles/slimeyGarden";
 import fred from "./characters/fred";
 import myFirstSlime from "./characters/myFirstSlime";
 import { Battle } from "./lib/battle";
 import State from "./lib/state";
 import flaskOfPerfectionReward from "./rewards/flaskOfPerfectionReward";
-
+import styles from "./layout.module.css";
+import { useEffect, useState } from "react";
+import Character from "./components/character";
 export let state: State = {
   character: fred,
   battles: [slimeyGarden],
@@ -12,6 +16,8 @@ export let state: State = {
     return state.battles[state.currentPosition];
   },
   currentPosition: 0,
+  currentCharacter: fred,
+  showInformation: true,
 };
 
 export default function RootLayout({
@@ -22,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ul>
+        <ul className={styles.navbar}>
           <li>
             <a href="/home">Home</a>
           </li>

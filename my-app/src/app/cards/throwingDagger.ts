@@ -1,20 +1,16 @@
 import Card from "../lib/card";
 import State from "../lib/state";
-import { decreaseCharacterHealth, getRandomNumber } from "../utils";
+import {
+  decreaseCharacterHealth,
+  decreaseRandomEnemyHealth,
+  getRandomNumber,
+} from "../utils";
 
 export default {
   name: "Throwing dagger",
   description: "Throws a dagger, slightly misses the face, but does 3 damage",
   action: (state: State) => {
-    const enemies = state.getCurrentBattle().enemies.filter((e) => {
-      return e.health > 0;
-    });
-    if (enemies.length == 0) {
-      return state;
-    }
-    let chosenEnemy = enemies[getRandomNumber(0, enemies.length - 1)];
-    chosenEnemy = decreaseCharacterHealth(chosenEnemy, 3);
-    return state;
+    return decreaseRandomEnemyHealth(state, 5);
   },
   imageUrl: "Dagger",
 } as Card;

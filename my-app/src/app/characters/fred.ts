@@ -1,3 +1,4 @@
+import swordOfEternity from "../cards/swordOfEternity";
 import throwingDagger from "../cards/throwingDagger";
 import timeout from "../cards/timeout";
 import { createCard } from "../lib/card";
@@ -18,6 +19,7 @@ export default {
     createCard(throwingDagger, 6),
     createCard(timeout, 7),
     createCard(throwingDagger, 8),
+    createCard(swordOfEternity, 9),
   ],
   imageUrl: "B_Queen",
 } as Character;
